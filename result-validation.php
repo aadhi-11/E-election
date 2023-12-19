@@ -8,7 +8,7 @@
         die(''. mysqli_connect_error());
     }
 
-    $squery="SELECT election_on FROM elections WHERE status= 1 AND CONST_ID = $CONST_ID ";
+    $squery="SELECT counting_on FROM elections WHERE status= 1 AND CONST_ID = $CONST_ID ";
     $result=mysqli_query($conn,$squery);
     if(!$result)
     {   
@@ -19,20 +19,19 @@
         while ($row = $result->fetch_assoc())
         {   
             $currentDate = date('Y-m-d');
-            $election_on = $row['election_on'];
+            $counting_on = $row['counting_on'];
 
-            if ($currentDate == $election_on)
+            if ($currentDate == $counting_on)
             {   
                 $status="1";
-                header("Location:voting.php?CONST_ID=".urlencode($CONST_ID)."&status=".$status."&id=".$ID);
+                header("Location:result.php?CONST_ID=".urlencode($CONST_ID)."&status=".$status."&id=".$ID);
                 
             } 
             else 
             {
-
                 $status= "1";
-                $statusv="Voting is not available now!";
-                header("Location:user-home.php?status=".$status."&statusv=".$statusv."&CONST_ID=".$CONST_ID."&id=".$ID);
+                $statusr="Today is not the result day!";
+                header("Location:user-home.php?status=".$status."&statusr=".$statusr."&CONST_ID=".$CONST_ID."&id=".$ID);
             }
         }
     }

@@ -2,10 +2,12 @@
     include('common-head.php');
     include('user-header.php');
     $statusv="";
+    $statusr="";
     if (isset($_GET['status']))
     {
         $status = $_GET['status'];
         $CONST_ID=$_GET['CONST_ID'];
+        $id=$_GET['id'];
     }
     else{
         header("Location:login.php?status=".$status);
@@ -17,6 +19,10 @@
     if (isset($_GET['statusv']))
     {
         $statusv = $_GET['statusv'];
+    }
+    if (isset($_GET['statusr']))
+    {
+        $statusr = $_GET['statusr'];
     }
 ?>
  <div class="container rounded-3 d-flex aligns-items-center justify-content-center">
@@ -31,12 +37,14 @@
                 <h3>Vote</h3>
                 <br>
                 <p><i><?php echo "".$statusv."" ?></i></p>
-                <a href="voting-validation?CONST_ID=<?php echo $CONST_ID ; ?>" class="btn btn-success"> vote</a>
+                <a href="voting-validation?CONST_ID=<?php echo $CONST_ID ; ?>&id=<?php echo $id ; ?>" class="btn btn-success"> vote</a>
+
             </div>
             <div class="col-xl-6">
                 <h3>Result</h3>
                 <br>
-                <a href="#" class="btn btn-success" > Result </a>
+                <p><i><?php echo "".$statusr."" ?></i></p>
+                <a href="result-validation.php?CONST_ID=<?php echo $CONST_ID ; ?>&id=<?php echo $id ; ?>" class="btn btn-success" > Result </a>
             </div>
 </form>
 

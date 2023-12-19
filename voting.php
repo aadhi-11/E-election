@@ -1,7 +1,7 @@
 <?php
     include('conn.php');
     $CONST_ID=$_GET['CONST_ID'];
-
+    $id=$_GET['id'];
     
     $connection = mysqli_connect($hostname, $username, $password, $databaseName);
     if (!$connection) 
@@ -9,7 +9,7 @@
         die(''. mysqli_connect_error());
     }
 
-    $squery=" SELECT fName,mName,lName,symbolphoto,EID FROM candidate WHERE status= 1 AND CONST_ID = $CONST_ID ";
+    $squery=" SELECT CONST_ID,fName,mName,lName,symbolphoto,EID FROM candidate WHERE status= 1 AND CONST_ID = $CONST_ID ";
     $result=mysqli_query($conn,$squery);
     if($result==null)
     {
@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <form action="" method="post">
+                <form action="voting_submit.php" method="post">
             <?php while ($row = $result->fetch_assoc()) : ?>
                 <tr>
                     <td><?php echo $row['fName']; ?></td>
@@ -53,18 +53,37 @@
 <td>
 
     <div class="form-check">
-  <input class="form-check-input" type="radio" value="<?php echo $row['EID']?>" name="vote" id="flexCheckDefault">
+  <input class="form-check-input" type="radio" value="<?php echo $row['EID']?>" name="CANDID" id="flexCheckDefault">
+  <input type="hidden" value="<?php echo $row['CONST_ID']?>" name="CONST_ID">
+  <input type="hidden" value="<?php echo $id?>" name="id" />;
   
 </div></td>
 
-                </tr>
+</tr>
             <?php endwhile; ?>
+        
+            
+            
+            <div class="container  d-flex aligns-items-center justify-content-center text-white pt-5 mb-0">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+            <td>
+                <button type="submit" class="btn btn-success" >Vote</button>
+                </td>
+                </tr>
+            </div>
+            
+           
+            
+            
+            
             </form>
             </tbody>
         </table>
        </div>
-       <div class="container  d-flex aligns-items-center justify-content-center text-white pt-5 mb-0">
-            <a href="country-regs.php" class="btn btn-lg btn-success text-white">Vote</a>
-       </div>
+
     </div>
 </div>
